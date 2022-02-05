@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import axios from 'axios';
 import { MonoText } from '../components/StyledText';
 import EditScreenInfo from '../components/EditScreenInfo';
-import MessageWindow from '../components/MessageWindow';
+import KnowledgeWindow from '../components/KnowledgeWindow';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { useEffect, useState } from 'react';
@@ -30,7 +30,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         <MonoText style={styles.subTitle}>A question & answer AI bot that also suggests articles/podcasts <br/> Powered by GPT-3 and trained on an open source dataset of established Bitcoin knowledge</MonoText>
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       </View>
-      <MessageWindow path='/screens/TabOneScreen.tsx' />
+      <KnowledgeWindow path='/screens/TabOneScreen.tsx' />
     </View>
   );
 }

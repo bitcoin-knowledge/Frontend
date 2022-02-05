@@ -5,12 +5,12 @@ import Colors from '../constants/Colors';
 import { MonoText } from './StyledText';
 import { Text, View } from './Themed';
 
-export default function MessageWindow({ path }: { path: string }) {
+export default function Chatbot({ path }: { path: string }) {
   return (
     <View>
-      <View style={styles.messageContainer}>
+      <View style={styles.knowledgeContainer}>
         <Text style={styles.getStartedText}>
-            Message Container
+            Chatbot Container
         </Text>
       </View>
     </View>
@@ -24,7 +24,12 @@ function handleHelpPress() {
 }
 
 const styles = StyleSheet.create({
-  messageContainer: {
+  knowledgeContainer: {
+    width: '80%',
+    border: '4px solid #F2A900',
+    borderTop: '45px solid #F2A900',
+    borderRadius: 25,
+    padding: 5,
     alignItems: 'center',
     marginHorizontal: 50,
   },
