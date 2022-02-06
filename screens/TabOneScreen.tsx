@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 20,
+    padding: 15,
   },
   titleContainer: {
     alignItems: 'center',

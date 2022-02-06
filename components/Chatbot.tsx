@@ -1,37 +1,44 @@
 import * as WebBrowser from 'expo-web-browser';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 import Colors from '../constants/Colors';
 import { MonoText } from './StyledText';
 import { Text, View } from './Themed';
 
-export default function Chatbot({ path }: { path: string }) {
-  return (
-    <View>
-      <View style={styles.knowledgeContainer}>
-        <Text style={styles.getStartedText}>
-            Chatbot Container
-        </Text>
-      </View>
-    </View>
-  );
-}
+export default function Chatbot({ path, messages }: { path: string, messages: Array<{ id: number, text: string, name: string }> }) {
 
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet'
+  return (
+      <View style={styles.chatbotContainer}>
+        <InfiniteScroll
+            dataLength={3} //This is important field to render the next data
+            loader={<h4>Loading...</h4>}
+            next={() => null}
+            hasMore={false}
+        >
+            {messages.map((message, index) => {
+                return (
+                    <View key={index}>
+                        <View style={styles.chatTextContainer}>
+                            <MonoText>{message.text}</MonoText>
+                        </View>
+                    </View>
+                )
+            })}
+        </InfiniteScroll>
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
-  knowledgeContainer: {
-    width: '80%',
-    border: '4px solid #F2A900',
-    borderTop: '45px solid #F2A900',
-    borderRadius: 25,
+  chatbotContainer: {
+    width: '50%',
+    backgroundColor: '#536878',
+    borderWidth: 4,
+    borderRightColor: '#F2A900',
+    borderTopLeftRadius: 15,
+    borderBottomLeftRadius: 15,
     padding: 5,
     alignItems: 'center',
-    marginHorizontal: 50,
   },
   homeScreenFilename: {
     marginVertical: 7,
@@ -40,20 +47,16 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     paddingHorizontal: 4,
   },
-  getStartedText: {
-    fontSize: 17,
-    lineHeight: 24,
-    textAlign: 'center',
+  scrollComponentStyles: {
+    borderWidth: 4,
+    borderTopColor: 'white',
   },
-  helpContainer: {
-    marginTop: 15,
-    marginHorizontal: 20,
-    alignItems: 'center',
+  chatTextContainer: {
+    borderWidth: 4,
+    borderColor: '#F2A900',
+    borderRadius: 10,
+    padding: 5,
+    margin: 5,
   },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    textAlign: 'center',
-  },
+  
 });

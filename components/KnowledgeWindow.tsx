@@ -5,29 +5,42 @@ import ArticleSuggestion from './ArticleSuggestion';
 import Colors from '../constants/Colors';
 import { MonoText } from './StyledText';
 import { Text, View } from './Themed';
+import { useState } from 'react';
 
 export default function KnowledgeWindow({ path }: { path: string }) {
+  const [messages, setMessages] = useState([
+    {
+        id: 1,
+        text: "Hello World! I'm Bitcoin Knowledge Bot",
+        name: "Bot"
+    },
+    {
+        id: 2,
+        text: "I can answer most of your Bitcoin questions, but rembmember I'm just a chatbot so I might say something incorrect 'Dont trust, verify' and read the knowledge sources on your own and use your discernment",
+        name: "Bot"
+    },
+    {
+        id: 3,
+        text: "What can I answer for you?",
+        name: "Bot"
+    }
+  ])
   return (
     <View>
       <View style={styles.knowledgeContainer}>
-        <Chatbot path={path} />
+        <Chatbot path={path} messages={messages}/>
         <ArticleSuggestion path={path} />
       </View>
     </View>
   );
 }
 
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet'
-  );
-}
-
 const styles = StyleSheet.create({
   knowledgeContainer: {
     width: '100%',
+    height: '100%',
     flexDirection: 'row',
-    padding: 5,
+    padding: 2,
   },
   homeScreenFilename: {
     marginVertical: 7,

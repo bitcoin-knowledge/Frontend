@@ -8,7 +8,7 @@ import { Text, View } from './Themed';
 export default function ArticleSuggestion({ path }: { path: string }) {
   return (
     <View>
-      <View style={styles.knowledgeContainer}>
+      <View style={styles.articleContainer}>
         <Text style={styles.getStartedText}>
             Article Container
         </Text>
@@ -18,14 +18,14 @@ export default function ArticleSuggestion({ path }: { path: string }) {
 }
 
 const styles = StyleSheet.create({
-  knowledgeContainer: {
-    width: '80%',
-    border: '4px solid #F2A900',
-    borderTop: '45px solid #F2A900',
-    borderRadius: 25,
+  articleContainer: {
+    backgroundColor: '#36454f',
+    borderWidth: 4,
+    borderLeftColor: '#F2A900',
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
     padding: 5,
     alignItems: 'center',
-    marginHorizontal: 50,
   },
   homeScreenFilename: {
     marginVertical: 7,
