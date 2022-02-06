@@ -19,7 +19,7 @@ export default function ArticleSuggestion({ path }: { path: string }) {
 
 const styles = StyleSheet.create({
   articleContainer: {
-    backgroundColor: '#36454f',
+    backgroundColor: '#555d50',
     borderWidth: 4,
     borderLeftColor: '#F2A900',
     borderTopRightRadius: 15,

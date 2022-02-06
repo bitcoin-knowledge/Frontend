@@ -1,6 +1,6 @@
 import * as WebBrowser from 'expo-web-browser';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import Chatbot from './Chatbot';
+import Chatbot from './chatbot/Chatbot';
 import ArticleSuggestion from './ArticleSuggestion';
 import Colors from '../constants/Colors';
 import { MonoText } from './StyledText';
@@ -8,27 +8,14 @@ import { Text, View } from './Themed';
 import { useState } from 'react';
 
 export default function KnowledgeWindow({ path }: { path: string }) {
-  const [messages, setMessages] = useState([
-    {
-        id: 1,
-        text: "Hello World! I'm Bitcoin Knowledge Bot",
-        name: "Bot"
-    },
-    {
-        id: 2,
-        text: "I can answer most of your Bitcoin questions, but rembmember I'm just a chatbot so I might say something incorrect 'Dont trust, verify' and read the knowledge sources on your own and use your discernment",
-        name: "Bot"
-    },
-    {
-        id: 3,
-        text: "What can I answer for you?",
-        name: "Bot"
-    }
-  ])
+  const [height, setHeight] = useState(0);
   return (
     <View>
-      <View style={styles.knowledgeContainer}>
-        <Chatbot path={path} messages={messages}/>
+      <View style={styles.knowledgeContainer} onLayout={(event) => {
+        const {height} = event.nativeEvent.layout;
+        setHeight(height);
+      }}>
+        <Chatbot path={path} height={height}/>
         <ArticleSuggestion path={path} />
       </View>
     </View>
