@@ -26,30 +26,18 @@ export default function Chatbot({ path, height}: { path: string, height: number 
         id: 3,
         text: "What can I answer for you?",
         name: "Bot"
-    }
-  ])
-
-  const handleOnSubmit = (e: Event) => {
-    e.preventDefault();
-    // create user message from prompt
-    setId(id + 1)
-    const userMessage = {
-      id: id,
-      text: newMessage,
+    },
+    {
+      id: 4,
+      text: "What can I answer for you?",
       name: "User"
     }
-    // add user message to messages
-    setTimeout(() => {
-      setMessages([...messages, userMessage])
-    }, 1000)
-    // Clear input field
-    setNewMessage('');
-  }
+  ])
 
   return (
       <View style={styles.chatbotContainer}>
           <InfiniteScroll
-              dataLength={3} //This is important field to render the next data
+              dataLength={messages.length} //This is important field to render the next data
               height={fixedHeight}
               loader={<h4>Loading...</h4>}
               next={() => null}
@@ -57,7 +45,8 @@ export default function Chatbot({ path, height}: { path: string, height: number 
           >
               {messages.map((message, index) => {
                   return (
-                      message.name === 'Bot'
+                    <View key={index} style={styles.messageContainer}>
+                      {message.name === 'Bot'
                       ?
                           <View key={index} style={styles.botTextContainer}>
                               <MonoText style={styles.nameText}>Bot:</MonoText>
@@ -68,16 +57,19 @@ export default function Chatbot({ path, height}: { path: string, height: number 
                                   <MonoText style={styles.nameText}>User:</MonoText>
                                   <MonoText>{message.text}</MonoText>
                           </View>
+                      }
+                    </View>
                   )
               })}
           </InfiniteScroll>
-          <ChatInput />
+          <ChatInput newMessage={newMessage} messages={messages} setMessages={setMessages} setNewMessage={setNewMessage} setId={setId} id={id} />
       </View>
   );
 }
 
 const styles = StyleSheet.create({
   chatbotContainer: {
+    display: 'flex',
     width: '50%',
     backgroundColor: '#708090',
     borderWidth: 4,
@@ -98,10 +90,14 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderTopColor: 'white',
   },
+  messageContainer: {
+    display: 'flex',
+    backgroundColor: '#708090',
+  },
   botTextContainer: {
-    maxWidth: '45%',
+    maxWidth: '55%',
     minWidth: '5%',
-    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
     borderWidth: 4,
     borderColor: '#F2A900',
     borderRadius: 10,
@@ -109,9 +105,9 @@ const styles = StyleSheet.create({
     margin: 7,
   },
   userTextContainer: {
-    maxWidth: '45%',
+    maxWidth: '55%',
     minWidth: '5%',
-    justifyContent: 'flex-end',
+    alignSelf: 'flex-end',
     borderWidth: 4,
     borderColor: '#F2A900',
     borderRadius: 10,

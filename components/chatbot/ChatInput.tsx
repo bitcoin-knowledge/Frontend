@@ -5,8 +5,25 @@ import { MonoText } from '../StyledText';
 import { Text, View } from '../Themed';
 import { useState } from 'react';
 
-export default function ChatInput() {
+export default function ChatInput({messages, newMessage, id, setId, setMessages, setNewMessage} : {messages: any, id: any, setId: any, newMessage: any, setMessages: any, setNewMessage: any}) {
   const [text, onChangeText] = useState('');
+
+  const handleOnSubmit = (event: Event) => {
+    event.preventDefault();
+    // create user message from prompt
+    setId(id + 1)
+    const userMessage = {
+      id: id,
+      text: newMessage,
+      name: "User"
+    }
+    // add user message to messages
+    setTimeout(() => {
+      setMessages([...messages, userMessage])
+    }, 1000)
+    // Clear input field
+    setNewMessage('');
+  }
 
   return (
     <View style={styles.inputContainer}>
