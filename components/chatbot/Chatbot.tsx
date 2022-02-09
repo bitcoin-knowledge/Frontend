@@ -8,7 +8,7 @@ import { useState, useRef, useEffect } from 'react';
 import ChatInput from './ChatInput';
 
 export default function Chatbot({ path, height}: { path: string, height: number }) {
-  const fixedHeight = height / 100 * 90;
+  const fixedHeight = height / 100 * 89;
   const [id, setId] = useState(4);
   const [newMessage, setNewMessage] = useState('');
   const [messages, setMessages] = useState([
@@ -29,7 +29,7 @@ export default function Chatbot({ path, height}: { path: string, height: number 
     },
     {
       id: 4,
-      text: "What can I answer for you?",
+      text: "Who is Satoshi?",
       name: "User"
     }
   ])
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: '#F2A900',
     borderRadius: 10,
-    padding: 7,
+    padding: 10,
     margin: 7,
   },
   userTextContainer: {
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: '#F2A900',
     borderRadius: 10,
-    padding: 7,
+    padding: 10,
     margin: 7,
   },
   nameText: {

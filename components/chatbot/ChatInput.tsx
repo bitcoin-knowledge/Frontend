@@ -37,7 +37,7 @@ export default function ChatInput({messages, newMessage, id, setId, setMessages,
 
 const styles = StyleSheet.create({
   inputContainer: {
-    width: '75%',
+    width: '80%',
     flexDirection: 'row',
     borderWidth: 2,
     padding: 10,
@@ -49,15 +49,15 @@ const styles = StyleSheet.create({
     width: '99%',
     backgroundColor: 'white',
     borderWidth: 1,
-    padding: 5,
+    padding: 10,
     borderRadius: 5,
   },
   buttonText: {
     fontSize: 15,
   },
   button: {
-    width: '10%',
-    padding: 5,
+    width: '20%',
+    padding: 10,
     marginLeft: 10,
     borderWidth: 1,
     borderColor: '#F2A900',
