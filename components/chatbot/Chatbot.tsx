@@ -1,16 +1,21 @@
 import * as WebBrowser from 'expo-web-browser';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from 'react-native-infinite-scrolling'
 import Colors from '../../constants/Colors';
 import { MonoText } from '../StyledText';
 import { Text, View } from '../Themed';
 import { useState, useRef, useEffect } from 'react';
 import ChatInput from './ChatInput';
+import axios from 'axios';
 
 export default function Chatbot({ path, height}: { path: string, height: number }) {
   const fixedHeight = height / 100 * 89;
   const [id, setId] = useState(4);
   const [newMessage, setNewMessage] = useState('');
+  const [data, setData] = useState([])
+  useEffect(() => {
+    loadMore()
+  },[])
   const [messages, setMessages] = useState([
     {
         id: 1,
@@ -34,34 +39,36 @@ export default function Chatbot({ path, height}: { path: string, height: number 
     }
   ])
 
+  const loadMore = () => {
+    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
+    .then((response) => {
+      let updatedData = data.concat(response.data)
+      setData(updatedData)
+    })
+    .catch((error) => console.log('error =', error))
+  }
+
+  const renderData = ({ item }: any) => {
+    return(
+      item.name === 'Bot' ?
+        <View style={styles.botTextContainer}>
+          <MonoText style={styles.nameText}>Bot:</MonoText>
+          <MonoText>{item.text}</MonoText>
+        </View>
+        :
+        <View style={styles.userTextContainer}>
+          <MonoText style={styles.nameText}>User:</MonoText>
+          <MonoText>{item.text}</MonoText>
+        </View>
+    )
+  }
+
   return (
       <View style={styles.chatbotContainer}>
-          <InfiniteScroll
-              dataLength={messages.length} //This is important field to render the next data
-              height={fixedHeight}
-              loader={<h4>Loading...</h4>}
-              next={() => null}
-              hasMore={false}
-          >
-              {messages.map((message, index) => {
-                  return (
-                    <View key={index} style={styles.messageContainer}>
-                      {message.name === 'Bot'
-                      ?
-                          <View key={index} style={styles.botTextContainer}>
-                              <MonoText style={styles.nameText}>Bot:</MonoText>
-                              <MonoText>{message.text}</MonoText>
-                          </View>
-                      :
-                          <View key={index} style={styles.userTextContainer}>
-                                  <MonoText style={styles.nameText}>User:</MonoText>
-                                  <MonoText>{message.text}</MonoText>
-                          </View>
-                      }
-                    </View>
-                  )
-              })}
-          </InfiniteScroll>
+          <InfiniteScroll 
+          renderData = {renderData}
+          data = { messages }
+        />
           <ChatInput newMessage={newMessage} messages={messages} setMessages={setMessages} setNewMessage={setNewMessage} setId={setId} id={id} />
       </View>
   );
@@ -91,6 +98,7 @@ const styles = StyleSheet.create({
     borderTopColor: 'white',
   },
   messageContainer: {
+    width: '100%',
     display: 'flex',
     backgroundColor: '#708090',
   },

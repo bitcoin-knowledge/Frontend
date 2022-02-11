@@ -27,7 +27,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
             <MonoText>Status:</MonoText>
             <MonoText style={botStatus === 'Loading...' ? styles.statusText : styles.statusTextConnected}>{botStatus}</MonoText>
         </View>
-        <MonoText style={styles.subTitle}>A question & answer AI bot that also suggests articles/podcasts <br/> Powered by GPT-3 and trained on an open source dataset of established Bitcoin knowledge</MonoText>
+        <MonoText style={styles.subTitle}>A question & answer AI bot that also suggests articles/podcasts {"\n"} Powered by GPT-3 and trained on an open source dataset of established Bitcoin knowledge</MonoText>
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       </View>
       <KnowledgeWindow path='/screens/TabOneScreen.tsx' />
