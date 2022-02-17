@@ -13,9 +13,6 @@ export default function Chatbot({ path, height}: { path: string, height: number 
   const [id, setId] = useState(4);
   const [newMessage, setNewMessage] = useState('');
   const [data, setData] = useState([])
-  useEffect(() => {
-    loadMore()
-  },[])
   const [messages, setMessages] = useState([
     {
         id: 1,
@@ -38,15 +35,6 @@ export default function Chatbot({ path, height}: { path: string, height: number 
       name: "User"
     }
   ])
-
-  const loadMore = () => {
-    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
-    .then((response) => {
-      let updatedData = data.concat(response.data)
-      setData(updatedData)
-    })
-    .catch((error) => console.log('error =', error))
-  }
 
   const renderData = ({ item }: any) => {
     return(
