@@ -19,9 +19,28 @@ const initialState = {
     },
     {
       id: 4,
-      text: "Who is Satoshi?",
-      name: "User"
-    }
+      text: "What can I answer for you?",
+      name: "Bot"
+  },
+  {
+    id: 5,
+    text: "What can I answer for you?",
+    name: "Bot"
+},
+{
+  id: 6,
+  text: "What can I answer for you?",
+  name: "Bot"
+},
+{
+  id: 7,
+  text: "What can I answer for you?",
+  name: "Bot"
+},{
+  id: 8,
+  text: "What can I answer for you?",
+  name: "Bot"
+}
   ],
   loading: false,
   id: 4,
@@ -33,6 +52,11 @@ const ChatbotReducer = function (state = initialState, action: any) {
       return {
         ...state,
         id: action.payload,
+      };
+    case SET_NEW_MESSAGE:
+      return {
+        ...state,
+        messages: [...state.messages, action.payload],
       };
     default:
       return state;

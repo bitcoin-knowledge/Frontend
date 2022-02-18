@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import InfiniteScroll from 'react-native-infinite-scrolling'
 import Colors from '../../constants/Colors';
 import { MonoText } from '../StyledText';
@@ -66,14 +66,18 @@ export default function Chatbot({ path, height}: { path: string, height: number 
   }
 
   return (
-      <View style={styles.chatbotContainer}>
-          <InfiniteScroll 
-          renderData = {renderData}
-          data = { messages }
-        />
-          <div ref={bottomListRef} />
+      <SafeAreaView style={styles.chatbotContainer}>
+        <ScrollView style={styles.scroll}>
+          <FlatList
+            ref={bottomListRef}
+            data={messages}
+            renderItem={renderData}
+            keyExtractor={(item: any) => item.id.toString()}
+            style={styles.chatLog}
+          />
+        </ScrollView>
           <ChatInput />
-      </View>
+      </SafeAreaView>
   );
 }
 
@@ -81,13 +85,22 @@ const styles = StyleSheet.create({
   chatbotContainer: {
     display: 'flex',
     width: '50%',
+    height: '92%',
     backgroundColor: '#708090',
     borderWidth: 4,
     borderRightColor: '#F2A900',
     borderTopLeftRadius: 15,
     borderBottomLeftRadius: 15,
-    padding: 5,
     alignItems: 'center',
+  },
+  chatbotList: {
+    width: '100%',
+    height: '100%',
+  },
+  scroll: {
+    marginBottom: 5,
+    borderBottomColor: 'white',
+    borderBottomWidth: 4,
   },
   homeScreenFilename: {
     marginVertical: 7,
@@ -128,5 +141,5 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 15,
     marginBottom: 7,
-  },
+  }
 });

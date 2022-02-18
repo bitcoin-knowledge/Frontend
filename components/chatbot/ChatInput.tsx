@@ -13,8 +13,8 @@ export default function ChatInput() {
   const loading = useSelector((state: any) => state.ChatbotReducer.loading);
   const id = useSelector((state: any) => state.ChatbotReducer.id);
 
-  const handleOnSubmit = (event: Event) => {
-    event.preventDefault();
+  const handleOnSubmit = () => {
+    onChangeText('');
     // create user message from prompt
     dispatch({ type: UPDATE_ID, payload: id + 1 });
     const userMessage = {
@@ -26,14 +26,12 @@ export default function ChatInput() {
     setTimeout(() => {
       dispatch({ type: SET_NEW_MESSAGE, payload: userMessage });
     }, 1000)
-    // clear text input
-    onChangeText('');
   }
 
   return (
     <View style={styles.inputContainer}>
         <TextInput style={styles.input} onChangeText={onChangeText} value={text} placeholder='Type your message here...' />
-        <Pressable style={styles.button} onPress={() => handleOnSubmit}>
+        <Pressable style={styles.button} onPress={() => handleOnSubmit()}>
             <MonoText style={styles.buttonText}>send</MonoText>
         </Pressable>
     </View>
