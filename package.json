@@ -31,7 +31,6 @@
     "expo-web-browser": "~10.1.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-infinite-scroll-component": "^6.1.0",
     "react-native": "0.64.3",
     "react-native-infinite-scrolling": "^2.0.0",
     "react-native-safe-area-context": "3.3.2",

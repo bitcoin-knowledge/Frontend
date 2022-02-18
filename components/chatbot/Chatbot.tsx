@@ -6,35 +6,49 @@ import { MonoText } from '../StyledText';
 import { Text, View } from '../Themed';
 import { useState, useRef, useEffect } from 'react';
 import ChatInput from './ChatInput';
+import { useSelector, useDispatch } from 'react-redux';
+import { SET_LOADING } from '../../store/Actions';
 import axios from 'axios';
+import { UPDATE_ID, SET_NEW_MESSAGE } from '../../store/Actions';
 
 export default function Chatbot({ path, height}: { path: string, height: number }) {
-  const fixedHeight = height / 100 * 89;
-  const [id, setId] = useState(4);
-  const [newMessage, setNewMessage] = useState('');
-  const [data, setData] = useState([])
-  const [messages, setMessages] = useState([
-    {
-        id: 1,
-        text: "Hello World! I'm Bitcoin Knowledge Bot",
-        name: "Bot"
-    },
-    {
-        id: 2,
-        text: "I can answer most of your Bitcoin questions, but rembmember I'm just a chatbot so I might say something incorrect 'Dont trust, verify' and read the knowledge sources on your own and use your discernment",
-        name: "Bot"
-    },
-    {
-        id: 3,
-        text: "What can I answer for you?",
-        name: "Bot"
-    },
-    {
-      id: 4,
-      text: "Who is Satoshi?",
-      name: "User"
+  const dispatch = useDispatch();
+  const messages = useSelector((state: any) => state.ChatbotReducer.messages);
+  const bottomListRef = useRef();
+
+  const formatChatLog = () => {
+    let chatLog = ''
+    messages.map((message: any) => {
+      // Skip over the bot greeting
+      if (message.id > 3) {
+        chatLog += `${message.name}: ${message.text}\n\n###\n\n`
+      }
+      return null
+    })
+    return chatLog
+  }
+
+  useEffect(() => {
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage && lastMessage.name === 'User') {
+      dispatch({ type: SET_LOADING, payload: true });
+      const log = formatChatLog()
+      axios.post("https://bitcoin-knowledge-bot.herokuapp.com/ask", {chat_log: log})
+      .then(response => {
+        console.log(response)
+        setTimeout(() => {
+          dispatch({ type: UPDATE_ID, payload: false });
+          dispatch({ type: SET_NEW_MESSAGE, payload: { id: messages.length + 1, text: response.data.answer, name: 'Bot' } });
+          dispatch({ type: SET_LOADING, payload: false });
+          // Scroll down to the bottom of the list
+          bottomListRef.current.scrollIntoView({ behavior: 'smooth' });
+        }, 3000)
+      })
+      .catch(error => {
+          console.log(error)
+      })
     }
-  ])
+  }, [messages])
 
   const renderData = ({ item }: any) => {
     return(
@@ -57,7 +71,8 @@ export default function Chatbot({ path, height}: { path: string, height: number 
           renderData = {renderData}
           data = { messages }
         />
-          <ChatInput newMessage={newMessage} messages={messages} setMessages={setMessages} setNewMessage={setNewMessage} setId={setId} id={id} />
+          <div ref={bottomListRef} />
+          <ChatInput />
       </View>
   );
 }

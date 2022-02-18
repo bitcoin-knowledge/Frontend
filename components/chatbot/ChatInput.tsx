@@ -1,34 +1,39 @@
 import * as WebBrowser from 'expo-web-browser';
 import { StyleSheet, TextInput, Pressable } from 'react-native';
-import Colors from '../../constants/Colors';
+import { useSelector, useDispatch } from 'react-redux';
 import { MonoText } from '../StyledText';
 import { Text, View } from '../Themed';
 import { useState } from 'react';
+import { UPDATE_ID, SET_NEW_MESSAGE } from '../../store/Actions';
 
-export default function ChatInput({messages, newMessage, id, setId, setMessages, setNewMessage} : {messages: any, id: any, setId: any, newMessage: any, setMessages: any, setNewMessage: any}) {
+export default function ChatInput() {
+  const dispatch = useDispatch();
   const [text, onChangeText] = useState('');
+  const messages = useSelector((state: any) => state.ChatbotReducer.messages);
+  const loading = useSelector((state: any) => state.ChatbotReducer.loading);
+  const id = useSelector((state: any) => state.ChatbotReducer.id);
 
   const handleOnSubmit = (event: Event) => {
     event.preventDefault();
     // create user message from prompt
-    setId(id + 1)
+    dispatch({ type: UPDATE_ID, payload: id + 1 });
     const userMessage = {
       id: id,
-      text: newMessage,
+      text: text,
       name: "User"
     }
     // add user message to messages
     setTimeout(() => {
-      setMessages([...messages, userMessage])
+      dispatch({ type: SET_NEW_MESSAGE, payload: userMessage });
     }, 1000)
-    // Clear input field
-    setNewMessage('');
+    // clear text input
+    onChangeText('');
   }
 
   return (
     <View style={styles.inputContainer}>
         <TextInput style={styles.input} onChangeText={onChangeText} value={text} placeholder='Type your message here...' />
-        <Pressable style={styles.button} onPress={() => console.log('send')}>
+        <Pressable style={styles.button} onPress={() => handleOnSubmit}>
             <MonoText style={styles.buttonText}>send</MonoText>
         </Pressable>
     </View>
