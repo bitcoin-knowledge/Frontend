@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: '#F2A900',
     borderRadius: 15,
+    marginBottom: 5,
   },
   input: {
     width: '99%',

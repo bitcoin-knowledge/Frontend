@@ -1,6 +1,6 @@
 import * as WebBrowser from 'expo-web-browser';
 import { StyleSheet, FlatList, SafeAreaView, ScrollView } from 'react-native';
-import InfiniteScroll from 'react-native-infinite-scrolling'
+import ReactLoading from 'react-loading';
 import Colors from '../../constants/Colors';
 import { MonoText } from '../StyledText';
 import { Text, View } from '../Themed';
@@ -14,7 +14,9 @@ import { UPDATE_ID, SET_NEW_MESSAGE } from '../../store/Actions';
 export default function Chatbot({ path, height}: { path: string, height: number }) {
   const dispatch = useDispatch();
   const messages = useSelector((state: any) => state.ChatbotReducer.messages);
-  const bottomListRef = useRef();
+  const loading = useSelector((state: any) => state.ChatbotReducer.loading);
+  const id = useSelector((state: any) => state.ChatbotReducer.id);
+  const bottomListRef: any = useRef();
 
   const formatChatLog = () => {
     let chatLog = ''
@@ -37,11 +39,13 @@ export default function Chatbot({ path, height}: { path: string, height: number 
       .then(response => {
         console.log(response)
         setTimeout(() => {
-          dispatch({ type: UPDATE_ID, payload: false });
+          dispatch({ type: UPDATE_ID, payload: id + 1 });
           dispatch({ type: SET_NEW_MESSAGE, payload: { id: messages.length + 1, text: response.data.answer, name: 'Bot' } });
           dispatch({ type: SET_LOADING, payload: false });
           // Scroll down to the bottom of the list
-          bottomListRef.current.scrollIntoView({ behavior: 'smooth' });
+          if (bottomListRef && bottomListRef.current) {
+            bottomListRef.current.scrollIntoView({ behavior: 'smooth' });
+          }
         }, 3000)
       })
       .catch(error => {
@@ -54,12 +58,12 @@ export default function Chatbot({ path, height}: { path: string, height: number 
     return(
       item.name === 'Bot' ?
         <View style={styles.botTextContainer}>
-          <MonoText style={styles.nameText}>Bot:</MonoText>
+          <MonoText style={styles.nameText}>Bot: </MonoText>
           <MonoText>{item.text}</MonoText>
         </View>
         :
         <View style={styles.userTextContainer}>
-          <MonoText style={styles.nameText}>User:</MonoText>
+          <MonoText style={styles.nameText}>User: </MonoText>
           <MonoText>{item.text}</MonoText>
         </View>
     )
@@ -75,6 +79,12 @@ export default function Chatbot({ path, height}: { path: string, height: number 
             keyExtractor={(item: any) => item.id.toString()}
             style={styles.chatLog}
           />
+          {loading ?
+          <View style={styles.chatBubbles}>
+            <ReactLoading type={'bubbles'} color={"#F2A900"} height={"10%"} width={"10%"} />
+          </View>
+          : null}
+          <div ref={bottomListRef} />
         </ScrollView>
           <ChatInput />
       </SafeAreaView>
@@ -85,10 +95,13 @@ const styles = StyleSheet.create({
   chatbotContainer: {
     display: 'flex',
     width: '50%',
-    height: '92%',
-    backgroundColor: '#708090',
+    height: '87%',
+    backgroundColor: 'black',
     borderWidth: 4,
     borderRightColor: '#F2A900',
+    borderTopColor: '#F2A900',
+    borderLeftColor: '#F2A900',
+    borderBottomColor: '#F2A900',
     borderTopLeftRadius: 15,
     borderBottomLeftRadius: 15,
     alignItems: 'center',
@@ -98,9 +111,11 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   scroll: {
+    height: '100%',
     marginBottom: 5,
+    backgroundColor: '#708090',
     borderBottomColor: 'white',
-    borderBottomWidth: 4,
+    borderBottomWidth: 1,
   },
   homeScreenFilename: {
     marginVertical: 7,
@@ -122,7 +137,7 @@ const styles = StyleSheet.create({
     maxWidth: '55%',
     minWidth: '5%',
     alignSelf: 'flex-start',
-    borderWidth: 4,
+    borderWidth: 2,
     borderColor: '#F2A900',
     borderRadius: 10,
     padding: 10,
@@ -132,7 +147,7 @@ const styles = StyleSheet.create({
     maxWidth: '55%',
     minWidth: '5%',
     alignSelf: 'flex-end',
-    borderWidth: 4,
+    borderWidth: 2,
     borderColor: '#F2A900',
     borderRadius: 10,
     padding: 10,
@@ -141,5 +156,9 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 15,
     marginBottom: 7,
+  },
+  chatBubbles: {
+    backgroundColor: 'transparent',
+    paddingLeft: '1%'
   }
 });

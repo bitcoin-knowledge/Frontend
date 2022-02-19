@@ -10,14 +10,12 @@ import { useState } from 'react';
 export default function KnowledgeWindow({ path }: { path: string }) {
   const [height, setHeight] = useState(0);
   return (
-    <View>
-      <View style={styles.knowledgeContainer} onLayout={(event) => {
-        const {height} = event.nativeEvent.layout;
-        setHeight(height);
-      }}>
-        <Chatbot path={path} height={height}/>
-        <ArticleSuggestion path={path} />
-      </View>
+    <View style={styles.knowledgeContainer} onLayout={(event) => {
+      const {height} = event.nativeEvent.layout;
+      setHeight(height);
+    }}>
+      <Chatbot path={path} height={height}/>
+      <ArticleSuggestion path={path} />
     </View>
   );
 }
