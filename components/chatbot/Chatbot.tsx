@@ -42,10 +42,8 @@ export default function Chatbot({ path, height}: { path: string, height: number 
           dispatch({ type: UPDATE_ID, payload: id + 1 });
           dispatch({ type: SET_NEW_MESSAGE, payload: { id: messages.length + 1, text: response.data.answer, name: 'Bot' } });
           dispatch({ type: SET_LOADING, payload: false });
-          // Scroll down to the bottom of the list
-          if (bottomListRef && bottomListRef.current) {
-            bottomListRef.current.scrollIntoView({ behavior: 'smooth' });
-          }
+          // Scroll down to the bottom of the list          
+          bottomListRef.current.scrollToEnd({animating: true});
         }, 3000)
       })
       .catch(error => {
@@ -73,18 +71,17 @@ export default function Chatbot({ path, height}: { path: string, height: number 
       <SafeAreaView style={styles.chatbotContainer}>
         <ScrollView style={styles.scroll}>
           <FlatList
-            ref={bottomListRef}
             data={messages}
             renderItem={renderData}
             keyExtractor={(item: any) => item.id.toString()}
             style={styles.chatLog}
+            ref={bottomListRef}
           />
           {loading ?
           <View style={styles.chatBubbles}>
             <ReactLoading type={'bubbles'} color={"#F2A900"} height={"10%"} width={"10%"} />
           </View>
           : null}
-          <div ref={bottomListRef} />
         </ScrollView>
           <ChatInput />
       </SafeAreaView>

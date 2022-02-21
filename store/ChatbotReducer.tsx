@@ -17,10 +17,25 @@ const initialState = {
         id: 3,
         text: "What can I answer for you?",
         name: "Bot"
-    }
+    },
+    {
+      id: 4,
+      text: "What can I answer for you?",
+      name: "Bot"
+  },
+  {
+    id: 5,
+    text: "What can I answer for you?",
+    name: "Bot"
+},
+{
+  id: 6,
+  text: "What can I answer for you?What can I answer for you?What can I answer for you?What can I answer for you?What can I answer for you?What can I answer for you?What can I answer for you?What can I answer for you?What can I answer for you?",
+  name: "Bot"
+}
   ],
   loading: false,
-  id: 4,
+  id: 7,
 };
 
 const ChatbotReducer = function (state = initialState, action: any) {
