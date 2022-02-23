@@ -1,53 +1,84 @@
 import * as WebBrowser from 'expo-web-browser';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-
-import Colors from '../constants/Colors';
+import { StyleSheet, FlatList, SafeAreaView, ScrollView } from 'react-native';
+import ReactLoading from 'react-loading';
 import { MonoText } from './StyledText';
 import { Text, View } from './Themed';
+import { useState, useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { SET_LOADING } from '../../store/Actions';
+import axios from 'axios';
+import { UPDATE_ID, SET_NEW_MESSAGE } from '../../store/Actions';
 
-export default function ArticleSuggestion({ path }: { path: string }) {
+export default function ArticleSuggestion() {
+  const dispatch = useDispatch();
+  const loading = useSelector((state: any) => state.ChatbotReducer.loading);
+  const articles = useSelector((state: any) => state.KnowledgeReducer.articles);
+  const bottomListRef: any = useRef();
+
+  const renderData = ({ item }: any) => {
+    return(
+        <View style={styles.articleContainer}>
+          <MonoText>{item.title}</MonoText>
+          <MonoText>{item.body}</MonoText>
+        </View>
+    )
+  }
+
   return (
-    <View>
-      <View style={styles.articleContainer}>
-        <Text style={styles.getStartedText}>
-            Article Container
-        </Text>
-      </View>
-    </View>
+      <SafeAreaView style={styles.knowledgeContainer}>
+        <ScrollView style={styles.scroll} ref={bottomListRef}>
+          <FlatList
+            data={articles}
+            renderItem={renderData}
+            style={styles.chatLog}
+          />
+          {loading ?
+          <View style={styles.chatBubbles}>
+            <ReactLoading type={'spinningBubbles'} color={"#F2A900"} height={"10%"} width={"10%"} />
+          </View>
+          : null}
+        </ScrollView>
+      </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  articleContainer: {
-    backgroundColor: '#555d50',
+  knowledgeContainer: {
+    display: 'flex',
+    width: '50%',
+    height: '87%',
+    backgroundColor: 'black',
     borderWidth: 4,
+    borderRightColor: '#F2A900',
+    borderTopColor: '#F2A900',
     borderLeftColor: '#F2A900',
+    borderBottomColor: '#F2A900',
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15,
-    padding: 5,
     alignItems: 'center',
   },
-  homeScreenFilename: {
-    marginVertical: 7,
+  scroll: {
+    height: '100%',
+    marginBottom: 5,
+    backgroundColor: '#708090',
+    borderBottomColor: 'white',
+    borderBottomWidth: 1,
   },
-  codeHighlightContainer: {
-    borderRadius: 3,
-    paddingHorizontal: 4,
+  articleContainer: {
+    maxWidth: '95%',
+    alignSelf: 'center',
+    borderWidth: 2,
+    borderColor: '#F2A900',
+    borderRadius: 10,
+    padding: 10,
+    margin: 7,
   },
-  getStartedText: {
-    fontSize: 17,
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  helpContainer: {
-    marginTop: 15,
-    marginHorizontal: 20,
+  chatBubbles: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    textAlign: 'center',
-  },
+    backgroundColor: 'transparent',
+    paddingLeft: '1%'
+  }
 });

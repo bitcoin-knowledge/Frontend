@@ -1,5 +1,4 @@
-import { SET_LOADING } from "./Actions";
-import { SET_NEW_MESSAGE, RECEIVE_BOT_RESPONSE, UPDATE_ID } from "./Actions";
+import { SET_NEW_MESSAGE, SET_LOADING, UPDATE_ID } from "./Actions";
 
 const initialState = {
   messages: [
@@ -17,25 +16,10 @@ const initialState = {
         id: 3,
         text: "What can I answer for you?",
         name: "Bot"
-    },
-    {
-      id: 4,
-      text: "What can I answer for you?",
-      name: "Bot"
-  },
-  {
-    id: 5,
-    text: "What can I answer for you?",
-    name: "Bot"
-},
-{
-  id: 6,
-  text: "What can I answer for you?What can I answer for you?What can I answer for you?What can I answer for you?What can I answer for you?What can I answer for you?What can I answer for you?What can I answer for you?What can I answer for you?",
-  name: "Bot"
-}
+    }
   ],
   loading: false,
-  id: 7,
+  id: 4,
 };
 
 const ChatbotReducer = function (state = initialState, action: any) {
