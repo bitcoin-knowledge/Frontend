@@ -2,7 +2,7 @@ import { StyleSheet, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import ReactLoading from 'react-loading';
 import { MonoText } from './StyledText';
 import { View } from './Themed';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function ArticleSuggestion() {

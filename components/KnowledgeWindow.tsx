@@ -15,7 +15,7 @@ export default function KnowledgeWindow({ path }: { path: string }) {
       setHeight(height);
     }}>
       <Chatbot path={path} height={height}/>
-      <ArticleSuggestion path={path} />
+      <ArticleSuggestion />
     </View>
   );
 }

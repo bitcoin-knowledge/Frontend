@@ -10,14 +10,23 @@ const initialState = {
       }
     ]
   };
+
+  const formatNewArticle = (article: any) => {
+    let newArticle = {}
+    newArticle["url"] = Object.values(article["url"])[0]
+    newArticle["image"] = Object.values(article["image"])[0]
+    newArticle["title"] = Object.values(article["title"])[0]
+    newArticle["body"] = Object.values(article["body"])[0]
+    return newArticle
+  }
   
   const KnowledgeReducer = function (state = initialState, action: any) {
     switch (action.type) {
       case UPDATE_ARTICLES:
-        console.log(action.payload)
+        const newArticle = formatNewArticle(action.payload[0])
         return {
           ...state,
-          // articles: action.payload,
+          articles: [...state.articles, newArticle],
         };
       default:
         return state;
