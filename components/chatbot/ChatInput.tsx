@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import { StyleSheet, TextInput, Pressable } from 'react-native';
+import { StyleSheet, TextInput, Pressable, NativeSyntheticEvent, TextInputKeyPressEventData } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { MonoText } from '../StyledText';
 import { Text, View } from '../Themed';
@@ -28,9 +28,15 @@ export default function ChatInput() {
     }, 1000)
   }
 
+  const handleKeyPress = (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+    if (e.nativeEvent.key === 'Enter') {
+      handleOnSubmit();
+    }
+  }
+
   return (
     <View style={styles.inputContainer}>
-        <TextInput style={styles.input} onChangeText={onChangeText} value={text} placeholder='Type your message here...' />
+        <TextInput style={styles.input} onChangeText={onChangeText} onKeyPress={handleKeyPress} enablesReturnKeyAutomatically={true} value={text} placeholder='Type your message here...' />
         <Pressable style={styles.button} onPress={() => handleOnSubmit()}>
             <MonoText style={styles.buttonText}>send</MonoText>
         </Pressable>

@@ -22,7 +22,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <MonoText style={styles.title}>Bitcoin Knowledge Bot</MonoText>
+        <MonoText style={styles.title}>Knowledge Bot</MonoText>
         <View style={styles.statusContainer}>
             <MonoText>Status:</MonoText>
             <MonoText style={botStatus === 'Loading...' ? styles.statusText : styles.statusTextConnected}>{botStatus}</MonoText>
