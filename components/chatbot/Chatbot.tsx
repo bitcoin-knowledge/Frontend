@@ -9,7 +9,7 @@ import ChatInput from './ChatInput';
 import { useSelector, useDispatch } from 'react-redux';
 import { SET_LOADING } from '../../store/Actions';
 import axios from 'axios';
-import { UPDATE_ID, SET_NEW_MESSAGE } from '../../store/Actions';
+import { UPDATE_ID, SET_NEW_MESSAGE, UPDATE_ARTICLES } from '../../store/Actions';
 
 export default function Chatbot({ path, height}: { path: string, height: number }) {
   const dispatch = useDispatch();
@@ -41,6 +41,7 @@ export default function Chatbot({ path, height}: { path: string, height: number 
         setTimeout(() => {
           dispatch({ type: UPDATE_ID, payload: id + 1 });
           dispatch({ type: SET_NEW_MESSAGE, payload: { id: messages.length + 1, text: response.data.answer, name: 'Bot' } });
+          dispatch({ type: UPDATE_ARTICLES, payload: response.data.articles });
           dispatch({ type: SET_LOADING, payload: false });
           // Now autoscroll to the bottom of the list
           bottomListRef.current.scrollToEnd({animated: true});
@@ -74,7 +75,6 @@ export default function Chatbot({ path, height}: { path: string, height: number 
             data={messages}
             renderItem={renderData}
             keyExtractor={(item: any) => item.id.toString()}
-            style={styles.chatLog}
           />
           {loading ?
           <View style={styles.chatBubbles}>

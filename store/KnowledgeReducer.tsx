@@ -14,9 +14,10 @@ const initialState = {
   const KnowledgeReducer = function (state = initialState, action: any) {
     switch (action.type) {
       case UPDATE_ARTICLES:
+        console.log(action.payload)
         return {
           ...state,
-          articles: action.payload,
+          // articles: action.payload,
         };
       default:
         return state;

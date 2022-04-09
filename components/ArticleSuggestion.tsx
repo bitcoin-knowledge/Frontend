@@ -1,16 +1,11 @@
-import * as WebBrowser from 'expo-web-browser';
 import { StyleSheet, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import ReactLoading from 'react-loading';
 import { MonoText } from './StyledText';
-import { Text, View } from './Themed';
-import { useState, useRef, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { SET_LOADING } from '../../store/Actions';
-import axios from 'axios';
-import { UPDATE_ID, SET_NEW_MESSAGE } from '../../store/Actions';
+import { View } from './Themed';
+import { useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function ArticleSuggestion() {
-  const dispatch = useDispatch();
   const loading = useSelector((state: any) => state.ChatbotReducer.loading);
   const articles = useSelector((state: any) => state.KnowledgeReducer.articles);
   const bottomListRef: any = useRef();
@@ -18,7 +13,8 @@ export default function ArticleSuggestion() {
   const renderData = ({ item }: any) => {
     return(
         <View style={styles.articleContainer}>
-          <MonoText>{item.title}</MonoText>
+          <MonoText style={{fontSize: 15}}>{item.title}</MonoText>
+          <br></br>
           <MonoText>{item.body}</MonoText>
         </View>
     )
@@ -30,7 +26,6 @@ export default function ArticleSuggestion() {
           <FlatList
             data={articles}
             renderItem={renderData}
-            style={styles.chatLog}
           />
           {loading ?
           <View style={styles.chatBubbles}>
@@ -59,10 +54,8 @@ const styles = StyleSheet.create({
   },
   scroll: {
     height: '100%',
-    marginBottom: 5,
     backgroundColor: '#708090',
-    borderBottomColor: 'white',
-    borderBottomWidth: 1,
+    borderBottomRightRadius: 10,
   },
   articleContainer: {
     maxWidth: '95%',
