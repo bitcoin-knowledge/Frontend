@@ -1,8 +1,9 @@
-import { StyleSheet, FlatList, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, FlatList, SafeAreaView, ScrollView, Pressable } from 'react-native';
 import ReactLoading from 'react-loading';
 import { MonoText } from './StyledText';
 import { View } from './Themed';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import * as WebBrowser from 'expo-web-browser';
 import { useSelector } from 'react-redux';
 
 export default function ArticleSuggestion() {
@@ -16,6 +17,9 @@ export default function ArticleSuggestion() {
           <MonoText style={{fontSize: 15}}>{item.title}</MonoText>
           <br></br>
           <MonoText>{item.body}</MonoText>
+          <Pressable style={styles.button} onPress={() => WebBrowser.openBrowserAsync(item.url)}>
+            <MonoText style={styles.buttonText}>read</MonoText>
+          </Pressable>
         </View>
     )
   }
@@ -73,5 +77,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
     paddingLeft: '1%'
+  },
+  buttonText: {
+    fontSize: 15,
+  },
+  button: {
+    width: '15%',
+    marginTop: '3%',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#F2A900',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'black',
   }
 });
