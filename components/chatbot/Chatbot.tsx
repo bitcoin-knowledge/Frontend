@@ -1,7 +1,7 @@
 import * as WebBrowser from 'expo-web-browser';
 import { StyleSheet, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import ReactLoading from 'react-loading';
-import Colors from '../../constants/Colors';
+import { Message } from "../../types" 
 import { MonoText } from '../StyledText';
 import { Text, View } from '../Themed';
 import { useState, useRef, useEffect } from 'react';
@@ -74,7 +74,7 @@ export default function Chatbot({ path, height}: { path: string, height: number 
           <FlatList
             data={messages}
             renderItem={renderData}
-            keyExtractor={(item: any) => item.id.toString()}
+            keyExtractor={(item: Message) => item.id.toString()}
           />
           {loading ?
           <View style={styles.chatBubbles}>

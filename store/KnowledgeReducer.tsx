@@ -1,6 +1,7 @@
 import {UPDATE_ARTICLES} from './Actions';
+import { KnowledgeState, Article } from "../types";
 
-const initialState = {
+const initialState: KnowledgeState = {
     articles: [
       {
         url: 'https://nakamotoinstitute.org/bitcoin/',
@@ -12,11 +13,12 @@ const initialState = {
   };
 
   const formatNewArticle = (article: any) => {
-    let newArticle = {}
-    newArticle["url"] = Object.values(article["url"])[0]
-    newArticle["image"] = Object.values(article["image"])[0]
-    newArticle["title"] = Object.values(article["title"])[0]
-    newArticle["body"] = Object.values(article["body"])[0]
+    const newArticle: Article = {
+      url: Object.values(article["url"])[0] as string,
+      image: Object.values(article["image"])[0] as string,
+      title: Object.values(article["title"])[0] as string,
+      body: Object.values(article["body"])[0] as string
+    }
     return newArticle
   }
   

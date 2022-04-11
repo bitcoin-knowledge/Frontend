@@ -3,6 +3,8 @@
  * https://reactnavigation.org/docs/typescript/
  */
 
+// Expo types
+
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -33,3 +35,28 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
 >;
+
+// App types
+
+export interface Message {
+  id: number;
+  text: string;
+  name: string;
+}
+
+export interface ChatbotState {
+  messages: Array<Message>;
+  loading: boolean;
+  id: number;
+}
+
+export interface Article {
+  url: string;
+  image: string;
+  title: string;
+  body: string;
+}
+
+export interface KnowledgeState {
+articles: Array<Article>;
+}

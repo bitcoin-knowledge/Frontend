@@ -1,6 +1,7 @@
 import { SET_NEW_MESSAGE, SET_LOADING, UPDATE_ID } from "./Actions";
+import { ChatbotState } from "../types";
 
-const initialState = {
+const initialState: ChatbotState = {
   messages: [
     {
         id: 1,
