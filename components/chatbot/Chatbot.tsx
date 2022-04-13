@@ -7,9 +7,8 @@ import { Text, View } from '../Themed';
 import { useState, useRef, useEffect } from 'react';
 import ChatInput from './ChatInput';
 import { useSelector, useDispatch } from 'react-redux';
-import { SET_LOADING } from '../../store/Actions';
 import axios from 'axios';
-import { UPDATE_ID, SET_NEW_MESSAGE, UPDATE_ARTICLES } from '../../store/Actions';
+import { UPDATE_ID, SET_NEW_MESSAGE, UPDATE_ARTICLES, SET_LOADING } from '../../store/Actions';
 
 export default function Chatbot({ path, height}: { path: string, height: number }) {
   const dispatch = useDispatch();

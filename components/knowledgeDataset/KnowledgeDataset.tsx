@@ -1,17 +1,36 @@
 import * as WebBrowser from 'expo-web-browser';
+import axios from 'axios';
 import { StyleSheet, FlatList, ScrollView, Pressable } from 'react-native';
-import Chatbot from '../chatbot/Chatbot';
-import ArticleSuggestion from '../ArticleSuggestion';
-import Colors from '../../constants/Colors';
+import ReactLoading from 'react-loading';
 import { MonoText } from '../StyledText';
 import { Text, View } from '../Themed';
-import { useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { SET_LOADING, UPDATE_ALL_KNOWLEDGE } from '../../store/Actions';
 
 export default function KnowledgeDataset({ path }: { path: string }) {
+  const dispatch = useDispatch();
   const [height, setHeight] = useState(0);
-  const articles = useSelector((state: any) => state.KnowledgeReducer.articles);
+  const loading = useSelector((state: any) => state.ChatbotReducer.loading);
+  const knowledge = useSelector((state: any) => state.KnowledgeReducer.knowledge);
   const bottomListRef: any = useRef();
+
+  useEffect(() => {
+    dispatch({ type: SET_LOADING, payload: true });
+    axios.get("https://bitcoin-knowledge-bot.herokuapp.com/knowledge")
+    .then((response: any) => {
+      console.log(response)
+      setTimeout(() => {
+        dispatch({ type: SET_LOADING, payload: false });
+        dispatch({ type: UPDATE_ALL_KNOWLEDGE, payload: response.data });
+        // Now autoscroll to the bottom of the list
+        bottomListRef.current.scrollToEnd({animated: true});
+      }, 3000)
+    })
+    .catch((error: any) => {
+        console.log(error)
+    })
+  },[])
 
   const renderData = ({ item }: any) => {
     return(
@@ -32,10 +51,16 @@ export default function KnowledgeDataset({ path }: { path: string }) {
       setHeight(height);
     }}>
         <ScrollView style={styles.scroll} ref={bottomListRef}>
+        {loading ?
+          <View style={styles.chatBubbles}>
+            <ReactLoading type={'spinningBubbles'} color={"#F2A900"} height={"10%"} width={"10%"} />
+          </View>
+          :
           <FlatList
-            data={articles}
+            data={knowledge}
             renderItem={renderData}
           />
+        }
         </ScrollView>
     </View>
   );
