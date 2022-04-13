@@ -21,6 +21,7 @@ export default function KnowledgeWindow({ path }: { path: string }) {
 }
 
 const styles = StyleSheet.create({
+  // Now I will add the breakpoints for KnowledgeContainer
   knowledgeContainer: {
     width: '100%',
     height: '100%',

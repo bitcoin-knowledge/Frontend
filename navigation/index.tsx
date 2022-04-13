@@ -66,7 +66,7 @@ function BottomTabNavigator() {
         name="TabOne"
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Knowledge Bot',
+          title: 'Bitcoin Knowledge Bot',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
@@ -88,7 +88,7 @@ function BottomTabNavigator() {
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: 'Bitcoin Datasets',
+          title: 'Knowledge Dataset',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
