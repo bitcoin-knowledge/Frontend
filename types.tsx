@@ -58,6 +58,7 @@ export interface Article {
 }
 
 export interface KnowledgeState {
-articles: Array<Article>;
-knowledge: Array<Article>;
+  articles: Array<Article>;
+  knowledge: Array<Article>;
+  query: string;
 }

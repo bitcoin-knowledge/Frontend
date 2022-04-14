@@ -4,3 +4,4 @@ export const UPDATE_ID = 'UPDATE_ID';
 export const SET_LOADING = 'SET_LOADING';
 export const UPDATE_ARTICLES = 'UPDATE_ARTICLES';
 export const UPDATE_ALL_KNOWLEDGE = 'UPDATE_ALL_KNOWLEDGE';
+export const UPDATE_QUERY = 'UPDATE_QUERY';

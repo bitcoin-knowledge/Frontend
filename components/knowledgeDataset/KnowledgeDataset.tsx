@@ -13,7 +13,8 @@ export default function KnowledgeDataset({ path }: { path: string }) {
   const [height, setHeight] = useState(0);
   const loading = useSelector((state: any) => state.ChatbotReducer.loading);
   const knowledge = useSelector((state: any) => state.KnowledgeReducer.knowledge);
-  const bottomListRef: any = useRef();
+  const query = useSelector((state: any) => state.KnowledgeReducer.query);
+  const [filterState, setFilterState] = useState([]);
 
   useEffect(() => {
     dispatch({ type: SET_LOADING, payload: true });
@@ -23,14 +24,17 @@ export default function KnowledgeDataset({ path }: { path: string }) {
       setTimeout(() => {
         dispatch({ type: SET_LOADING, payload: false });
         dispatch({ type: UPDATE_ALL_KNOWLEDGE, payload: response.data });
-        // Now autoscroll to the bottom of the list
-        bottomListRef.current.scrollToEnd({animated: true});
       }, 3000)
     })
     .catch((error: any) => {
         console.log(error)
     })
   },[])
+
+  useEffect(() => {
+    setFilterState(knowledge.filter(((knowledgeCard: any) =>  knowledgeCard.title.toLowerCase().includes(query.toLowerCase()))))
+  },[query])
+  
 
   const renderData = ({ item }: any) => {
     return(
@@ -50,14 +54,14 @@ export default function KnowledgeDataset({ path }: { path: string }) {
       const {height} = event.nativeEvent.layout;
       setHeight(height);
     }}>
-        <ScrollView style={styles.scroll} ref={bottomListRef}>
+        <ScrollView style={styles.scroll}>
         {loading ?
           <View style={styles.chatBubbles}>
             <ReactLoading type={'spinningBubbles'} color={"#F2A900"} height={"10%"} width={"10%"} />
           </View>
           :
           <FlatList
-            data={knowledge}
+            data={query.length > 0 ? filterState : knowledge}
             renderItem={renderData}
           />
         }

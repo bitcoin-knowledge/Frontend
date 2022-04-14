@@ -4,40 +4,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { MonoText } from '../StyledText';
 import { Text, View } from '../Themed';
 import { useState } from 'react';
-import { UPDATE_ID, SET_NEW_MESSAGE } from '../../store/Actions';
+import { UPDATE_ID, SET_NEW_MESSAGE, UPDATE_QUERY } from '../../store/Actions';
 
 export default function KnowledgeInput() {
   const dispatch = useDispatch();
-  const [text, onChangeText] = useState('');
+  const query = useSelector((state: any) => state.KnowledgeReducer.query);
   const id = useSelector((state: any) => state.ChatbotReducer.id);
 
-  const handleOnSubmit = () => {
-    onChangeText('');
-    // create user message from prompt
-    dispatch({ type: UPDATE_ID, payload: id + 1 });
-    const userMessage = {
-      id: id,
-      text: text,
-      name: "User"
-    }
-    // add user message to messages
-    setTimeout(() => {
-      dispatch({ type: SET_NEW_MESSAGE, payload: userMessage });
-    }, 1000)
-  }
-
-  const handleKeyPress = (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
-    if (e.nativeEvent.key === 'Enter') {
-      handleOnSubmit();
-    }
+  const handleChange = (event: any) => {
+    dispatch({type: UPDATE_QUERY, payload: event.nativeEvent.text});
   }
 
   return (
     <View style={styles.inputContainer}>
-        <TextInput style={styles.input} onChangeText={onChangeText} onKeyPress={handleKeyPress} enablesReturnKeyAutomatically={true} value={text} placeholder='Type your search query here...' />
-        <Pressable style={styles.button} onPress={() => handleOnSubmit()}>
-            <MonoText style={styles.buttonText}>send</MonoText>
-        </Pressable>
+        <TextInput style={styles.input} onChange={handleChange} enablesReturnKeyAutomatically={true} value={query} placeholder='Type your search query here...' />
     </View>
   );
 }
