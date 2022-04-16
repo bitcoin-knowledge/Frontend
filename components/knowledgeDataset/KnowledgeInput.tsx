@@ -3,12 +3,13 @@ import { StyleSheet, TextInput, Pressable, NativeSyntheticEvent, TextInputKeyPre
 import { useSelector, useDispatch } from 'react-redux';
 import { MonoText } from '../StyledText';
 import { Text, View } from '../Themed';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UPDATE_ID, SET_NEW_MESSAGE, UPDATE_QUERY } from '../../store/Actions';
 
 export default function KnowledgeInput() {
   const dispatch = useDispatch();
   const query = useSelector((state: any) => state.KnowledgeReducer.query);
+  const knowledge = useSelector((state: any) => state.KnowledgeReducer.knowledge);
   const id = useSelector((state: any) => state.ChatbotReducer.id);
 
   const handleChange = (event: any) => {

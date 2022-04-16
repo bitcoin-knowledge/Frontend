@@ -20,11 +20,8 @@ export default function KnowledgeDataset({ path }: { path: string }) {
     dispatch({ type: SET_LOADING, payload: true });
     axios.get("https://bitcoin-knowledge-bot.herokuapp.com/knowledge")
     .then((response: any) => {
-      console.log(response)
-      setTimeout(() => {
-        dispatch({ type: SET_LOADING, payload: false });
-        dispatch({ type: UPDATE_ALL_KNOWLEDGE, payload: response.data });
-      }, 3000)
+      dispatch({ type: SET_LOADING, payload: false });
+      dispatch({ type: UPDATE_ALL_KNOWLEDGE, payload: response.data });
     })
     .catch((error: any) => {
         console.log(error)
@@ -41,7 +38,7 @@ export default function KnowledgeDataset({ path }: { path: string }) {
         <View style={styles.articleContainer}>
           <MonoText style={{fontSize: 15}}>{item.title}</MonoText>
           <br></br>
-          <MonoText>{item.body}</MonoText>
+          <MonoText style={styles.body}>{item.body}</MonoText>
           <Pressable style={styles.button} onPress={() => WebBrowser.openBrowserAsync(item.url)}>
             <MonoText style={styles.buttonText}>read</MonoText>
           </Pressable>
@@ -83,6 +80,20 @@ const styles = StyleSheet.create({
     borderLeftColor: '#F2A900',
     borderBottomColor: '#F2A900'
   },
+  articleContainer: {
+    borderWidth: 2,
+    borderColor: '#F2A900',
+    borderRadius: 10,
+    padding: 5,
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    alignItems: 'center',
+  },
+  body: {
+    width: '80%',
+  },
   homeScreenFilename: {
     marginVertical: 7,
   },
@@ -110,15 +121,6 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#708090',
     borderBottomRightRadius: 10,
-  },
-  articleContainer: {
-    maxWidth: '95%',
-    alignSelf: 'center',
-    borderWidth: 2,
-    borderColor: '#F2A900',
-    borderRadius: 10,
-    padding: 10,
-    margin: 7,
   },
   chatBubbles: {
     width: '100%',
