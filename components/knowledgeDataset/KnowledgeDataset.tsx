@@ -1,6 +1,6 @@
 import * as WebBrowser from 'expo-web-browser';
 import axios from 'axios';
-import { StyleSheet, FlatList, ScrollView, Pressable } from 'react-native';
+import { StyleSheet, FlatList, ScrollView, Pressable, Image } from 'react-native';
 import ReactLoading from 'react-loading';
 import { MonoText } from '../StyledText';
 import { Text, View } from '../Themed';
@@ -35,14 +35,13 @@ export default function KnowledgeDataset({ path }: { path: string }) {
 
   const renderData = ({ item }: any) => {
     return(
-        <View style={styles.articleContainer}>
-          <MonoText style={{fontSize: 15}}>{item.title}</MonoText>
-          <br></br>
-          <MonoText style={styles.body}>{item.body}</MonoText>
-          <Pressable style={styles.button} onPress={() => WebBrowser.openBrowserAsync(item.url)}>
-            <MonoText style={styles.buttonText}>read</MonoText>
+          <Pressable style={styles.articleContainer} onPress={() => WebBrowser.openBrowserAsync(item.url)}>
+            <Image style={styles.image} source={{uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'}} />
+            <View style={styles.articleTextContainer}>
+              <MonoText style={styles.articleTitle}>{item.title}</MonoText>
+              <MonoText style={styles.articleBody}>{item.body}</MonoText>
+            </View>
           </Pressable>
-        </View>
     )
   }
 
@@ -81,6 +80,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#F2A900'
   },
   articleContainer: {
+    backgroundColor: 'black',
     borderWidth: 2,
     borderColor: '#F2A900',
     borderRadius: 10,
@@ -90,6 +90,26 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     alignItems: 'center',
+    flexDirection: 'row',
+  },
+  articleTextContainer: {
+    width: '90%',
+    flexDirection: 'column',
+    paddingLeft: 3,
+    paddingRight: 3,
+  },
+  image: {
+    width: 70,
+    height: 70,
+    alignSelf: 'flex-start',
+  },
+  articleTitle: {
+    textAlign: 'center',
+    fontSize: 18,
+  },
+  articleBody: {
+    textAlign: 'center',
+    fontSize: 13,
   },
   body: {
     width: '80%',
