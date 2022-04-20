@@ -1,5 +1,6 @@
 import * as WebBrowser from 'expo-web-browser';
 import axios from 'axios';
+import {Card, Button, Icon} from "react-native-elements";
 import { StyleSheet, FlatList, ScrollView, Pressable, Image } from 'react-native';
 import ReactLoading from 'react-loading';
 import { MonoText } from '../StyledText';
@@ -31,17 +32,39 @@ export default function KnowledgeDataset({ path }: { path: string }) {
   useEffect(() => {
     setFilterState(knowledge.filter(((knowledgeCard: any) =>  knowledgeCard.title.toLowerCase().includes(query.toLowerCase()))))
   },[query])
+
+  const renderCard = ({ item }: { item: any }) => {
+    return(
+      <Card containerStyle={{maxWidth: "60%"}}>
+        <Card.Title>{item.title}</Card.Title>
+        <Card.Divider/>
+        <Card.Image source={{uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'}} />
+        <Text style={{marginBottom: 10}}>
+            {item.body}
+        </Text>
+        <Button
+          icon={<Icon tvParallaxProperties={null} name='code' color='#ffffff' />}
+          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+          title='READ' />
+      </Card>
+    )
+  }
   
 
   const renderData = ({ item }: any) => {
     return(
-          <Pressable style={styles.articleContainer} onPress={() => WebBrowser.openBrowserAsync(item.url)}>
-            <Image style={styles.image} source={{uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'}} />
-            <View style={styles.articleTextContainer}>
-              <MonoText style={styles.articleTitle}>{item.title}</MonoText>
-              <MonoText style={styles.articleBody}>{item.body}</MonoText>
-            </View>
-          </Pressable>
+      <Card containerStyle={{width: 600, margin: 'auto', marginBottom: 25}}>
+        <Card.Title style={styles.articleTitle}>{item.title}</Card.Title>
+        <Card.Divider/>
+        <Card.Image style={styles.image} source={{uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'}} />
+        <Text style={styles.articleBody}>
+            {item.body}
+        </Text>
+        <Button
+          icon={<Icon tvParallaxProperties={null} name='code' color='#ffffff' />}
+          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+          title='READ' />
+      </Card>
     )
   }
 
@@ -59,6 +82,7 @@ export default function KnowledgeDataset({ path }: { path: string }) {
           <FlatList
             data={query.length > 0 ? filterState : knowledge}
             renderItem={renderData}
+            contentContainerStyle={styles.listView}
           />
         }
         </ScrollView>
@@ -77,7 +101,7 @@ const styles = StyleSheet.create({
     borderRightColor: '#F2A900',
     borderTopColor: '#F2A900',
     borderLeftColor: '#F2A900',
-    borderBottomColor: '#F2A900'
+    borderBottomColor: '#F2A900',
   },
   articleContainer: {
     backgroundColor: 'black',
@@ -85,31 +109,39 @@ const styles = StyleSheet.create({
     borderColor: '#F2A900',
     borderRadius: 10,
     padding: 5,
+    width: '100%',
     marginTop: 5,
     marginBottom: 5,
-    marginLeft: 10,
-    marginRight: 10,
     alignItems: 'center',
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
   articleTextContainer: {
-    width: '90%',
+    width: '100%',
+    margin: 'auto',
     flexDirection: 'column',
     paddingLeft: 3,
     paddingRight: 3,
   },
   image: {
-    width: 70,
-    height: 70,
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
+    marginTop: 5,
+    marginBottom: 5,
   },
   articleTitle: {
     textAlign: 'center',
     fontSize: 18,
   },
   articleBody: {
+    marginTop: 10,
+    marginBottom: 10,
+    color: 'black',
     textAlign: 'center',
     fontSize: 13,
+  },
+  listView: {
+    width: '100%',
+    padding: '1%',
+    alignItems: 'center'
   },
   body: {
     width: '80%',
