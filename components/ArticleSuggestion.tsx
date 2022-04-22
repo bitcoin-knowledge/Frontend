@@ -1,4 +1,5 @@
 import { StyleSheet, FlatList, SafeAreaView, ScrollView, Pressable } from 'react-native';
+import {Card, Button, Icon} from "react-native-elements";
 import ReactLoading from 'react-loading';
 import { MonoText } from './StyledText';
 import { View } from './Themed';
@@ -13,14 +14,18 @@ export default function ArticleSuggestion() {
 
   const renderData = ({ item }: any) => {
     return(
-        <View style={styles.articleContainer}>
-          <MonoText style={{fontSize: 15}}>{item.title}</MonoText>
-          <br></br>
-          <MonoText>{item.body}</MonoText>
-          <Pressable style={styles.button} onPress={() => WebBrowser.openBrowserAsync(item.url)}>
-            <MonoText style={styles.buttonText}>read</MonoText>
-          </Pressable>
-        </View>
+      <Card containerStyle={{width: 600, margin: 'auto', marginBottom: 25, marginTop: 15, borderColor: 'black'}}>
+        <Card.Title style={styles.articleTitle}>{item.title}</Card.Title>
+        <Card.Divider/>
+        <Card.Image style={styles.image} source={{uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'}} />
+        <MonoText style={styles.articleBody}>
+            {item.body}
+        </MonoText>
+        <Button
+          icon={<Icon tvParallaxProperties={null} name='code' color='#ffffff' />}
+          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+          title='READ' />
+    </Card>
     )
   }
 
@@ -58,6 +63,7 @@ const styles = StyleSheet.create({
   },
   scroll: {
     height: '100%',
+    width: '100%',
     backgroundColor: '#708090',
     borderBottomRightRadius: 10,
   },
@@ -91,5 +97,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'black',
+  },
+  image: {
+    alignSelf: 'center',
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  articleTitle: {
+    textAlign: 'center',
+    fontSize: 18,
+  },
+  articleBody: {
+    marginTop: 10,
+    marginBottom: 10,
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 13,
   }
 });

@@ -39,9 +39,9 @@ export default function KnowledgeDataset({ path }: { path: string }) {
         <Card.Title>{item.title}</Card.Title>
         <Card.Divider/>
         <Card.Image source={{uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'}} />
-        <Text style={{marginBottom: 10}}>
+        <MonoText style={styles.articleBody}>
             {item.body}
-        </Text>
+        </MonoText>
         <Button
           icon={<Icon tvParallaxProperties={null} name='code' color='#ffffff' />}
           buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
