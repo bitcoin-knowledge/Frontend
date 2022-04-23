@@ -22,8 +22,10 @@ export default function ArticleSuggestion() {
             {item.body}
         </MonoText>
         <Button
-          icon={<Icon tvParallaxProperties={null} name='code' color='#ffffff' />}
-          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+          icon={<Icon tvParallaxProperties={null} name='code' color='#F2A900' />}
+          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#F2A900'}}
+          titleStyle={{color: 'black'}}
+          type="outline"
           title='READ' />
     </Card>
     )
