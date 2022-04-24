@@ -14,7 +14,7 @@ export default function ArticleSuggestion() {
 
   const renderData = ({ item }: any) => {
     return(
-      <Card containerStyle={{width: 600, margin: 'auto', marginBottom: 25, marginTop: 15, borderColor: 'black'}}>
+      <Card containerStyle={{width: 600, margin: 'auto', marginBottom: 25, marginTop: 15, borderColor: 'black', backgroundColor:'oldlace'}}>
         <Card.Title style={styles.articleTitle}>{item.title}</Card.Title>
         <Card.Divider/>
         <Card.Image style={styles.image} source={{uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'}} />
@@ -22,10 +22,9 @@ export default function ArticleSuggestion() {
             {item.body}
         </MonoText>
         <Button
-          icon={<Icon tvParallaxProperties={null} name='code' color='#F2A900' />}
+          icon={<Icon tvParallaxProperties={null} name='code' color='black' />}
           buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#F2A900'}}
           titleStyle={{color: 'black'}}
-          type="outline"
           title='READ' />
     </Card>
     )

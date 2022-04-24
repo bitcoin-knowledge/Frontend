@@ -4,7 +4,7 @@ import {Card, Button, Icon} from "react-native-elements";
 import { StyleSheet, FlatList, ScrollView, Pressable, Image } from 'react-native';
 import ReactLoading from 'react-loading';
 import { MonoText } from '../StyledText';
-import { Text, View } from '../Themed';
+import { View } from '../Themed';
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SET_LOADING, UPDATE_ALL_KNOWLEDGE } from '../../store/Actions';
@@ -32,37 +32,21 @@ export default function KnowledgeDataset({ path }: { path: string }) {
   useEffect(() => {
     setFilterState(knowledge.filter(((knowledgeCard: any) =>  knowledgeCard.title.toLowerCase().includes(query.toLowerCase()))))
   },[query])
-
-  const renderCard = ({ item }: { item: any }) => {
-    return(
-      <Card containerStyle={{maxWidth: "60%"}}>
-        <Card.Title>{item.title}</Card.Title>
-        <Card.Divider/>
-        <Card.Image source={{uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'}} />
-        <MonoText style={styles.articleBody}>
-            {item.body}
-        </MonoText>
-        <Button
-          icon={<Icon tvParallaxProperties={null} name='code' color='#ffffff' />}
-          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-          title='READ' />
-      </Card>
-    )
-  }
   
 
   const renderData = ({ item }: any) => {
     return(
-      <Card containerStyle={{width: 600, margin: 'auto', marginBottom: 25}}>
+      <Card containerStyle={{width: 600, margin: 'auto', marginBottom: 25, marginTop: 15, borderColor: 'black', backgroundColor:'oldlace'}}>
         <Card.Title style={styles.articleTitle}>{item.title}</Card.Title>
         <Card.Divider/>
         <Card.Image style={styles.image} source={{uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'}} />
-        <Text style={styles.articleBody}>
+        <MonoText style={styles.articleBody}>
             {item.body}
-        </Text>
+        </MonoText>
         <Button
-          icon={<Icon tvParallaxProperties={null} name='code' color='#ffffff' />}
-          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+          icon={<Icon tvParallaxProperties={null} name='code' color='black' />}
+          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#F2A900'}}
+          titleStyle={{color: 'black'}}
           title='READ' />
       </Card>
     )
