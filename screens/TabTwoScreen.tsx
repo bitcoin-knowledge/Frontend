@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import KnowledgeDataset from '../components/knowledgeDataset/KnowledgeDataset';
-import KnowledgeInput from '../components/knowledgeDataset/KnowledgeInput';
+import KnowledgeDataset from '../components/dataset/KnowledgeDataset';
+import KnowledgeInput from '../components/dataset/KnowledgeInput';
 import { Text, View } from '../components/Themed';
 
 export default function TabTwoScreen() {

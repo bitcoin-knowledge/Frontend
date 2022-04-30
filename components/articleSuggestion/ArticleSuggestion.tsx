@@ -1,8 +1,9 @@
 import { StyleSheet, FlatList, SafeAreaView, ScrollView, Pressable } from 'react-native';
 import {Card, Button, Icon} from "react-native-elements";
 import ReactLoading from 'react-loading';
-import { MonoText } from './StyledText';
-import { View } from './Themed';
+import { KnowledgeComponent } from '../knowledge/KnowledgeComponent';
+import { MonoText } from '../StyledText';
+import { View } from '../Themed';
 import { useRef } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { useSelector } from 'react-redux';
@@ -12,35 +13,12 @@ export default function ArticleSuggestion() {
   const articles = useSelector((state: any) => state.KnowledgeReducer.articles);
   const bottomListRef: any = useRef();
 
-  const renderData = ({ item }: any) => {
-    return(
-      <Card containerStyle={{width: 600, margin: 'auto', marginBottom: 25, marginTop: 15, borderColor: 'black', backgroundColor:'oldlace'}}>
-        <Card.Title style={styles.articleTitle}>{item.title}</Card.Title>
-        <Card.Divider/>
-        <Card.Image style={styles.image} source={{uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'}} />
-        <MonoText style={styles.articleBody}>
-            {item.body}
-        </MonoText>
-        <Card.Divider/>
-          <View style={styles.articleTagContainer}>
-            <MonoText style={styles.tag}>article</MonoText>
-            <MonoText style={styles.podcastTag}>podcast</MonoText>
-          </View>
-        <Button
-          icon={<Icon tvParallaxProperties={null} name='code' color='black' />}
-          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#F2A900'}}
-          titleStyle={{color: 'black'}}
-          title='READ' />
-    </Card>
-    )
-  }
-
   return (
       <SafeAreaView style={styles.knowledgeContainer}>
         <ScrollView style={styles.scroll} ref={bottomListRef}>
           <FlatList
             data={articles}
-            renderItem={renderData}
+            renderItem={KnowledgeComponent}
           />
           {loading ?
           <View style={styles.chatBubbles}>
@@ -137,6 +115,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     color: 'black',
     fontSize: 13,
+    fontWeight: 'bold',
+    letterSpacing: 2,
     backgroundColor: '#8BCDDE'
   },
   podcastTag: {
@@ -148,6 +128,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     color: 'black',
     fontSize: 13,
+    fontWeight: 'bold',
+    letterSpacing: 2,
     backgroundColor: '#55DDBB'
   }
 });

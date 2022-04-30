@@ -1,10 +1,10 @@
 import * as WebBrowser from 'expo-web-browser';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import Chatbot from './chatbot/Chatbot';
+import Chatbot from '../chatbot/Chatbot';
 import ArticleSuggestion from './ArticleSuggestion';
-import Colors from '../constants/Colors';
-import { MonoText } from './StyledText';
-import { Text, View } from './Themed';
+import Colors from '../../constants/Colors';
+import { MonoText } from '../StyledText';
+import { Text, View } from '../Themed';
 import { useState } from 'react';
 
 export default function KnowledgeWindow({ path }: { path: string }) {

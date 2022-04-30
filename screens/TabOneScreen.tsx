@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import axios from 'axios';
 import { MonoText } from '../components/StyledText';
 import EditScreenInfo from '../components/EditScreenInfo';
-import KnowledgeWindow from '../components/KnowledgeWindow';
+import KnowledgeWindow from '../components/articleSuggestion/KnowledgeWindow';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { useEffect, useState } from 'react';
