@@ -21,6 +21,11 @@ export default function ArticleSuggestion() {
         <MonoText style={styles.articleBody}>
             {item.body}
         </MonoText>
+        <Card.Divider/>
+          <View style={styles.articleTagContainer}>
+            <MonoText style={styles.tag}>article</MonoText>
+            <MonoText style={styles.podcastTag}>podcast</MonoText>
+          </View>
         <Button
           icon={<Icon tvParallaxProperties={null} name='code' color='black' />}
           buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#F2A900'}}
@@ -114,5 +119,35 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
     fontSize: 13,
+  },
+  articleTagContainer: {
+    padding: 5,
+    marginBottom: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: 'transparent',
+  },
+  tag: {
+    borderWidth: 1,
+    borderColor: 'black',
+    padding: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5,
+    color: 'black',
+    fontSize: 13,
+    backgroundColor: '#8BCDDE'
+  },
+  podcastTag: {
+    borderWidth: 1,
+    borderColor: 'black',
+    padding: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5,
+    color: 'black',
+    fontSize: 13,
+    backgroundColor: '#55DDBB'
   }
 });

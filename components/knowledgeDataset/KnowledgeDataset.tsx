@@ -70,6 +70,12 @@ export default function KnowledgeDataset({ path }: { path: string }) {
           />
         }
         </ScrollView>
+        <View style={styles.sidebar}> 
+          <MonoText style={styles.sidebarTitle}>Knowledge Data</MonoText>
+          <View style={styles.sidebarStatsContainer}>
+            <MonoText>Articles: {knowledge.length}</MonoText>
+          </View>
+        </View>
     </View>
   );
 }
@@ -129,6 +135,17 @@ const styles = StyleSheet.create({
   },
   body: {
     width: '80%',
+  },
+  sidebar: {
+    width: '20%',
+  },
+  sidebarTitle: {
+    paddingTop: 10,
+    textAlign: 'center',
+    fontSize: 18,
+  },
+  sidebarStatsContainer: {
+    margin: 25,
   },
   homeScreenFilename: {
     marginVertical: 7,
