@@ -25,14 +25,11 @@ export default function KnowledgeInput() {
 
 const styles = StyleSheet.create({
   inputContainer: {
-    width: '80%',
+    width: '100%',
     flexDirection: 'row',
     borderWidth: 2,
     padding: 10,
     alignItems: 'center',
-    borderColor: '#F2A900',
-    borderRadius: 15,
-    marginBottom: 5,
   },
   input: {
     width: '99%',

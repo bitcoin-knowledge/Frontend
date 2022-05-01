@@ -9,6 +9,7 @@ import { View } from '../Themed';
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SET_LOADING, UPDATE_ALL_KNOWLEDGE } from '../../store/Actions';
+import KnowledgeInput from './KnowledgeInput';
 
 export default function KnowledgeDataset({ path }: { path: string }) {
   const dispatch = useDispatch();
@@ -55,7 +56,13 @@ export default function KnowledgeDataset({ path }: { path: string }) {
         <View style={styles.sidebar}> 
           <MonoText style={styles.sidebarTitle}>Knowledge Data</MonoText>
           <View style={styles.sidebarStatsContainer}>
-            <MonoText>Articles: {knowledge.length}</MonoText>
+            <MonoText>Total Articles: {knowledge.length}</MonoText>
+            <MonoText>Total podcasts: {knowledge.length}</MonoText>
+          </View>
+          <KnowledgeInput />
+          <View style={styles.sidebarResultsContainer}>
+            <MonoText style={styles.resultsText}>Article results: {filterState.length}</MonoText>
+            <MonoText style={styles.resultsText}>Podcasts results: {filterState.length}</MonoText>
           </View>
         </View>
     </View>
@@ -66,7 +73,7 @@ const styles = StyleSheet.create({
   // Now I will add the breakpoints for KnowledgeContainer
   datasetContainer: {
     width: '100%',
-    height: '90%',
+    height: '100%',
     flexDirection: 'row',
     padding: 2,
     borderWidth: 4,
@@ -128,6 +135,16 @@ const styles = StyleSheet.create({
   },
   sidebarStatsContainer: {
     margin: 25,
+  },
+  sidebarResultsContainer: {
+    marginTop: 50,
+    margin: 25
+  },
+  resultsText: {
+    marginTop: 25,
+    fontSize: 18,
+    color: '#F2A900',
+    textAlign: 'center',
   },
   homeScreenFilename: {
     marginVertical: 7,

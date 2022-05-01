@@ -6,7 +6,6 @@ import { Text, View } from '../components/Themed';
 export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
-      <KnowledgeInput />
       <KnowledgeDataset path='/screens/TabTwoScreen.tsx' />
     </View>
   );
