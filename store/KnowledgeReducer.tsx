@@ -1,4 +1,4 @@
-import {UPDATE_ARTICLES, UPDATE_ALL_KNOWLEDGE, UPDATE_QUERY} from './Actions';
+import {UPDATE_ARTICLES, UPDATE_ALL_KNOWLEDGE, UPDATE_QUERY, UPDATE_ALL_PODCASTS} from './Actions';
 import { KnowledgeState, Article } from "../types";
 
 const initialState: KnowledgeState = {
@@ -12,6 +12,7 @@ const initialState: KnowledgeState = {
       }
     ],
     knowledge: [],
+    podcasts: [],
     query: ''
   };
 
@@ -38,6 +39,11 @@ const initialState: KnowledgeState = {
         return {
           ...state,
           knowledge: action.payload,
+        };
+      case UPDATE_ALL_PODCASTS:
+        return {
+          ...state,
+          podcasts: action.payload,
         };
       case UPDATE_QUERY:
         return {

@@ -61,5 +61,6 @@ export interface Article {
 export interface KnowledgeState {
   articles: Array<Article>;
   knowledge: Array<Article>;
+  podcasts: Array<Article>;
   query: string;
 }

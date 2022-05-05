@@ -40,7 +40,7 @@ export default function Chatbot({ path, height}: { path: string, height: number 
         setTimeout(() => {
           dispatch({ type: UPDATE_ID, payload: id + 1 });
           dispatch({ type: SET_NEW_MESSAGE, payload: { id: messages.length + 1, text: response.data.answer, name: 'Bot' } });
-          dispatch({ type: UPDATE_ARTICLES, payload: response.data.articles });
+          // dispatch({ type: UPDATE_ARTICLES, payload: response.data.articles });
           dispatch({ type: SET_LOADING, payload: false });
           // Now autoscroll to the bottom of the list
           bottomListRef.current.scrollToEnd({animated: true});

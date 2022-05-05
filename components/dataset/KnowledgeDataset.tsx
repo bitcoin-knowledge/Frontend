@@ -8,7 +8,7 @@ import { MonoText } from '../StyledText';
 import { View } from '../Themed';
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { SET_LOADING, UPDATE_ALL_KNOWLEDGE } from '../../store/Actions';
+import { SET_LOADING, UPDATE_ALL_KNOWLEDGE, UPDATE_ALL_PODCASTS } from '../../store/Actions';
 import KnowledgeInput from './KnowledgeInput';
 
 export default function KnowledgeDataset({ path }: { path: string }) {
@@ -16,16 +16,19 @@ export default function KnowledgeDataset({ path }: { path: string }) {
   const [height, setHeight] = useState(0);
   const loading = useSelector((state: any) => state.ChatbotReducer.loading);
   const knowledge = useSelector((state: any) => state.KnowledgeReducer.knowledge);
+  const podcasts = useSelector((state: any) => state.KnowledgeReducer.podcasts);
   const query = useSelector((state: any) => state.KnowledgeReducer.query);
   const [filterState, setFilterState] = useState([]);
+  const [combinedKnowledge, setCombinedKnowledge] = useState([]);
 
   useEffect(() => {
     dispatch({ type: SET_LOADING, payload: true });
     axios.get("https://bitcoin-knowledge-bot.herokuapp.com/knowledge")
     .then((response: any) => {
       dispatch({ type: SET_LOADING, payload: false });
-      console.log(response.data);
-      dispatch({ type: UPDATE_ALL_KNOWLEDGE, payload: response.data });
+      dispatch({ type: UPDATE_ALL_KNOWLEDGE, payload: response.data.articles });
+      dispatch({ type: UPDATE_ALL_PODCASTS, payload: response.data.podcasts });
+      setCombinedKnowledge(response.data.articles.concat(response.data.podcasts));
     })
     .catch((error: any) => {
         console.log(error)
@@ -33,7 +36,7 @@ export default function KnowledgeDataset({ path }: { path: string }) {
   },[])
 
   useEffect(() => {
-    setFilterState(knowledge.filter(((knowledgeCard: any) =>  knowledgeCard.title.toLowerCase().includes(query.toLowerCase()))))
+    setFilterState(combinedKnowledge.filter(((knowledgeCard: any) =>  knowledgeCard.title.toLowerCase().includes(query.toLowerCase()))))
   },[query])
 
   return (
@@ -48,7 +51,7 @@ export default function KnowledgeDataset({ path }: { path: string }) {
           </View>
           :
           <FlatList
-            data={query.length > 0 ? filterState : knowledge}
+            data={query.length > 0 ? filterState : combinedKnowledge}
             renderItem={KnowledgeComponent}
             contentContainerStyle={styles.listView}
           />
@@ -58,12 +61,11 @@ export default function KnowledgeDataset({ path }: { path: string }) {
           <MonoText style={styles.sidebarTitle}>Knowledge Data</MonoText>
           <View style={styles.sidebarStatsContainer}>
             <MonoText>Total Articles: {knowledge.length}</MonoText>
-            <MonoText>Total podcasts: {knowledge.length}</MonoText>
+            <MonoText>Total podcasts: {podcasts.length}</MonoText>
           </View>
           <KnowledgeInput />
           <View style={styles.sidebarResultsContainer}>
-            <MonoText style={styles.resultsText}>Article results: {filterState.length}</MonoText>
-            <MonoText style={styles.resultsText}>Podcasts results: {filterState.length}</MonoText>
+            <MonoText style={styles.resultsText}>Search results: {filterState.length}</MonoText>
           </View>
         </View>
     </View>

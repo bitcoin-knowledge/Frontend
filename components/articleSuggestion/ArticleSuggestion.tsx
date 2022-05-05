@@ -16,10 +16,11 @@ export default function ArticleSuggestion() {
   return (
       <SafeAreaView style={styles.knowledgeContainer}>
         <ScrollView style={styles.scroll} ref={bottomListRef}>
-          <FlatList
+          {/* <FlatList
             data={articles}
             renderItem={KnowledgeComponent}
-          />
+          /> */}
+          <MonoText>Article suggestions still under construction</MonoText>
           {loading ?
           <View style={styles.chatBubbles}>
             <ReactLoading type={'spinningBubbles'} color={"#F2A900"} height={"10%"} width={"10%"} />
