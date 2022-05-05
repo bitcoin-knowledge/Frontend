@@ -55,6 +55,7 @@ export interface Article {
   image: string;
   title: string;
   body: string;
+  type: string;
 }
 
 export interface KnowledgeState {

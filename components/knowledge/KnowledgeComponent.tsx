@@ -14,8 +14,7 @@ export const KnowledgeComponent = ({ item }: any) => {
         </MonoText>
         <Card.Divider/>
           <View style={styles.articleTagContainer}>
-            <MonoText style={styles.tag}>article</MonoText>
-            <MonoText style={styles.podcastTag}>podcast</MonoText>
+            <MonoText style={item.type == 'podcast' ? styles.tag : styles.podcastTag}>{item.type}</MonoText>
           </View>
         <Button
           icon={<Icon tvParallaxProperties={null} name='code' color='black' />}

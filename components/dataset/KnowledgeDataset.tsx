@@ -24,6 +24,7 @@ export default function KnowledgeDataset({ path }: { path: string }) {
     axios.get("https://bitcoin-knowledge-bot.herokuapp.com/knowledge")
     .then((response: any) => {
       dispatch({ type: SET_LOADING, payload: false });
+      console.log(response.data);
       dispatch({ type: UPDATE_ALL_KNOWLEDGE, payload: response.data });
     })
     .catch((error: any) => {
