@@ -20,7 +20,7 @@ export default function ArticleSuggestion() {
             data={articles}
             renderItem={KnowledgeComponent}
           /> */}
-          <MonoText>Article suggestions still under construction</MonoText>
+          <MonoText style={{fontWeight: '900', textAlign: 'center', margin: '10%'}}>Article suggestions still under construction</MonoText>
           {loading ?
           <View style={styles.chatBubbles}>
             <ReactLoading type={'spinningBubbles'} color={"#F2A900"} height={"10%"} width={"10%"} />
