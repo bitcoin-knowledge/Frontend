@@ -58,12 +58,20 @@ export const KnowledgeComponent = ({ item }: any) => {
       padding: 5,
       paddingLeft: 15,
       paddingRight: 15,
-      borderRadius: 5,
+      borderRadius: 7,
       color: 'black',
       fontSize: 13,
       fontWeight: 'bold',
       letterSpacing: 2,
-      backgroundColor: '#8BCDDE'
+      backgroundColor: '#8BCDDE',
+      shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     podcastTag: {
       borderWidth: 1,
@@ -71,12 +79,20 @@ export const KnowledgeComponent = ({ item }: any) => {
       padding: 5,
       paddingLeft: 15,
       paddingRight: 15,
-      borderRadius: 5,
+      borderRadius: 7,
       color: 'black',
       fontSize: 13,
       fontWeight: 'bold',
       letterSpacing: 2,
-      backgroundColor: '#55DDBB'
+      backgroundColor: '#55DDBB',
+      shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     }
   });
   
