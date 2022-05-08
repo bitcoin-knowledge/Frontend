@@ -8,7 +8,7 @@ export const KnowledgeComponent = ({ item }: any) => {
       <Card containerStyle={{width: 600, margin: 'auto', marginBottom: 25, marginTop: 15, borderColor: 'black', backgroundColor:'oldlace'}}>
         <Card.Title style={styles.articleTitle}>{item.title}</Card.Title>
         <Card.Divider/>
-        <Card.Image style={styles.image} source={{uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'}} />
+        <Card.Image style={styles.image} source={item.image == null ? {uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'} : {uri: item.image}} />
         <MonoText style={styles.articleBody}>
             {item.body}
         </MonoText>
