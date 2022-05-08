@@ -1,4 +1,5 @@
 import { StyleSheet, FlatList, SafeAreaView, ScrollView, Pressable } from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
 import {Card, Button, Icon} from "react-native-elements";
 import { MonoText } from '../StyledText';
 import { View } from '../Themed';
@@ -17,10 +18,11 @@ export const KnowledgeComponent = ({ item }: any) => {
             <MonoText style={item.type == 'podcast' ? styles.tag : styles.podcastTag}>{item.type}</MonoText>
           </View>
         <Button
-          icon={<Icon tvParallaxProperties={null} name='code' color='black' />}
-          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#F2A900'}}
-          titleStyle={{color: 'black'}}
-          title='READ' />
+            onPress={() => WebBrowser.openBrowserAsync(item.url)}
+            icon={<Icon tvParallaxProperties={null} name='code' color='black' />}
+            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#F2A900'}}
+            titleStyle={{color: 'black'}}
+            title='READ' />
     </Card>
     )
   }
