@@ -13,28 +13,28 @@ export default function EditScreenInfo({ path }: { path: string }) {
           style={styles.getStartedText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          Open up the code for this screen:
+          A question & answer AI bot that also suggests articles/podcasts based on your questions.
+          Bitcoin Knowledge Bot is powered by GPT-3 and trained on an open source dataset of established Bitcoin knowledge
         </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
-          darkColor="rgba(255,255,255,0.05)"
-          lightColor="rgba(0,0,0,0.05)">
-          <MonoText>{path}</MonoText>
-        </View>
-
         <Text
           style={styles.getStartedText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          Change any of the text, save the file, and your app will automatically update.
+          The idea behind this project was to currate high signal Bitcoin knowledge that avoids shitcoins, FUD, and general Bitcoin disinformation.
+          Currating this data this allows us to train a simple GPT3 model for chat and a tensorflow ranking model for knowledge suggestions that is far more trustworthy and useful due to it's transparent Bitcoin focused datasets.
+        </Text>
+        <Text
+          style={styles.getStartedText}
+          lightColor="rgba(0,0,0,0.8)"
+          darkColor="rgba(255,255,255,0.8)">
+          Bitcoin knowledge bot is open source, you can pull down the repo, see the datasets, and even generate them yourself.
         </Text>
       </View>
 
       <View style={styles.helpContainer}>
         <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
           <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-            Tap here if your app doesn't automatically update after making changes
+            Github
           </Text>
         </TouchableOpacity>
       </View>
@@ -44,7 +44,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
 
 function handleHelpPress() {
   WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet'
+    'https://github.com/bitcoin-knowledge'
   );
 }
 
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     lineHeight: 24,
     textAlign: 'center',
+    margin: 30
   },
   helpContainer: {
     marginTop: 15,
