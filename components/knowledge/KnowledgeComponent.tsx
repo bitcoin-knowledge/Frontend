@@ -6,7 +6,7 @@ import { View } from '../Themed';
 
 export const KnowledgeComponent = ({ item }: any) => {
     return(
-      <Card containerStyle={{width: 600, margin: 'auto', marginBottom: 25, marginTop: 15, borderColor: 'black', backgroundColor:'oldlace'}}>
+      <Card containerStyle={{width: 600, margin: 'auto', marginBottom: 25, marginTop: 15, borderColor: 'black', borderRadius: 10, borderWidth: 2, backgroundColor:'oldlace'}}>
         <Card.Title style={styles.articleTitle}>{item.title}</Card.Title>
         <Card.Divider/>
         <Card.Image style={styles.image} source={item.image == null ? {uri: 'https://bitcoin.org/img/icons/opengraph.png?1648897668'} : {uri: item.image}} />
@@ -20,7 +20,7 @@ export const KnowledgeComponent = ({ item }: any) => {
         <Button
             onPress={() => WebBrowser.openBrowserAsync(item.url)}
             icon={<Icon tvParallaxProperties={null} name='code' color='black' />}
-            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#F2A900'}}
+            buttonStyle={{borderRadius: 5, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#F2A900', borderColor: 'black', borderWidth: 1}}
             titleStyle={{color: 'black'}}
             title='READ' />
     </Card>
