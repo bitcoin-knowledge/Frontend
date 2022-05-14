@@ -14,11 +14,16 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     axios.get("https://bitcoin-knowledge-bot.herokuapp.com/")
     .then(response => {
         setBotStatus(response.data)
+        pingChatbot()
     })
     .catch(error => {
         console.log(error)
     })
 },[]);
+
+const pingChatbot = () => {
+  axios.get("https://bitcoin-knowledge-bot.herokuapp.com/ping")
+}
 
   return (
     <View style={styles.container}>
