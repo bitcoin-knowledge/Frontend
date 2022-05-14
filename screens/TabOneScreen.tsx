@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native';
 import axios from 'axios';
 import { MonoText } from '../components/StyledText';
-import EditScreenInfo from '../components/EditScreenInfo';
-import KnowledgeWindow from '../components/articleSuggestion/KnowledgeWindow';
-import { Text, View } from '../components/Themed';
+import Chatbot from '../components/chatbot/Chatbot';
+import ArticleSuggestion from '../components/knowledge/ArticleSuggestion';
+import { View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { useEffect, useState } from 'react';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const [botStatus, setBotStatus] = useState<string>('Loading...');
+  const [height, setHeight] = useState(0);
   useEffect(() => {
     axios.get("https://bitcoin-knowledge-bot.herokuapp.com/")
     .then(response => {
@@ -30,7 +31,13 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         <MonoText style={styles.subTitle}>A question & answer AI bot that also suggests articles/podcasts {"\n"} Powered by GPT-3 and trained on an open source dataset of established Bitcoin knowledge</MonoText>
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       </View>
-      <KnowledgeWindow path='/screens/TabOneScreen.tsx' />
+      <View style={styles.knowledgeContainer} onLayout={(event) => {
+      const {height} = event.nativeEvent.layout;
+        setHeight(height);
+      }}>
+        <Chatbot path='/screens/TabOneScreen.tsx' height={height}/>
+        <ArticleSuggestion />
+      </View>
     </View>
   );
 }
@@ -78,5 +85,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     height: 2,
     width: '150%',
+  },
+  knowledgeContainer: {
+    width: '100%',
+    height: '100%',
+    flexDirection: 'row',
+    padding: 2,
   },
 });

@@ -1,11 +1,9 @@
-import { StyleSheet, FlatList, SafeAreaView, ScrollView, Pressable } from 'react-native';
-import {Card, Button, Icon} from "react-native-elements";
+import { StyleSheet, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import ReactLoading from 'react-loading';
-import { KnowledgeComponent } from '../knowledge/KnowledgeComponent';
+import { KnowledgeComponent } from './KnowledgeComponent';
 import { MonoText } from '../StyledText';
 import { View } from '../Themed';
 import { useRef } from 'react';
-import * as WebBrowser from 'expo-web-browser';
 import { useSelector } from 'react-redux';
 
 export default function ArticleSuggestion() {
