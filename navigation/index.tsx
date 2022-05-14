@@ -41,7 +41,7 @@ function RootNavigator() {
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
+        <Stack.Screen name="About" component={ModalScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -70,14 +70,14 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate('Modal')}
+              onPress={() => navigation.navigate('About')}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
               <FontAwesome
                 name="info-circle"
                 size={25}
-                color={Colors[colorScheme].text}
+                color={Colors[colorScheme].orange}
                 style={{ marginRight: 15 }}
               />
             </Pressable>
