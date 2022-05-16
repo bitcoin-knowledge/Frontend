@@ -15,25 +15,13 @@ const initialState: KnowledgeState = {
     podcasts: [],
     query: ''
   };
-
-  const formatNewArticle = (article: any) => {
-    const newArticle: Article = {
-      url: Object.values(article["url"])[0] as string,
-      image: Object.values(article["image"])[0] as string,
-      title: Object.values(article["title"])[0] as string,
-      body: Object.values(article["body"])[0] as string,
-      type: Object.values(article["type"])[0] as string
-    }
-    return newArticle
-  }
   
   const KnowledgeReducer = function (state = initialState, action: any) {
     switch (action.type) {
       case UPDATE_ARTICLES:
-        const newArticle = formatNewArticle(action.payload[0])
         return {
           ...state,
-          articles: [...state.articles, newArticle],
+          articles: [...state.articles, ...action.payload.slice(0, 2)],
         };
       case UPDATE_ALL_KNOWLEDGE:
         return {
