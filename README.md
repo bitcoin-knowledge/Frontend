@@ -1,2 +1,2 @@
 # Frontend
-A react-native frontend to replace the scrappy FE currently in place
+A react-native frontend for <a href='https://github.com/bitcoin-knowledge/bitcoin-knowledge-bot'>Bitcoin Knowledge Bot</a>
